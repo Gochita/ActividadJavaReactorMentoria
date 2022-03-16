@@ -13,12 +13,12 @@ class Factura {
     int cantidadProd;
     LocalDate fecha;
 
-    Factura(String descripcion, int importe, int codigoFactura,int cantidadProd, LocalDate fecha) {
+    Factura(String descripcion, int importe, int codigoFactura, int cantidadProd, LocalDate fecha) {
         this.descripcion = descripcion;
         this.importe = importe;
-        this.codigoFactura=codigoFactura;
-        this.cantidadProd=cantidadProd;
-        this.fecha=fecha;
+        this.codigoFactura = codigoFactura;
+        this.cantidadProd = cantidadProd;
+        this.fecha = fecha;
     }
 
     int getImporte() {
@@ -43,21 +43,21 @@ class Factura {
 
     @Override
     public String toString() {
-        return "Factura{" +
-                "descripcion='" + descripcion + '\'' +
-                ", importe=" + importe +
-                ", codigoFactura=" + codigoFactura +
-                ", cantidadProd=" + cantidadProd +
-                ", fecha=" + fecha +
-                '}';
+        return "Factura[" +
+                "descripcion: '" + descripcion + '\'' +
+                ", importe: " + importe +
+                ", codigoFactura: " + codigoFactura +
+                ", cantidadProd: " + cantidadProd +
+                ", fecha: " + fecha +
+                ']';
     }
 
     public static void main(String[] args) {
         // registros de la data
-        Factura f = new Factura("ordenador", 1000, 123,1,LocalDate.now());
-        Factura f2 = new Factura("movil", 300,456,2,LocalDate.now());
-        Factura f3 = new Factura("imporesora", 200,789,1,LocalDate.now());
-        Factura f4 = new Factura("imac", 1500,101,2,LocalDate.now());
+        Factura f = new Factura("laptop", 1000, 123, 1, LocalDate.of(2020, 11, 27));
+        Factura f2 = new Factura("headset-HYPERX", 300, 456, 2, LocalDate.of(2020, 7, 20));
+        Factura f3 = new Factura("alexa-mini", 200, 789, 1, LocalDate.of(2022, 1, 3));
+        Factura f4 = new Factura("rubix", 1500, 101, 2, LocalDate.of(2021, 11, 2));
 
         // generar una lista
         List<Factura> lista = new ArrayList<Factura>();
@@ -70,59 +70,55 @@ class Factura {
 
 
         // filtraje funcional con streams
-        Factura facturaFiltroCostoImporte = lista.stream()
+        List<Factura> facturaFiltroCostoImporte = lista.stream()
                 .filter(elemento -> elemento.getImporte() > 300)
-                .findFirst()
-                .get();
-       System.out.println(facturaFiltroCostoImporte.getImporte());
-
+                .collect(Collectors.toList());
+        if (facturaFiltroCostoImporte.isEmpty()) {
+            System.out.println("No se encontro ninguno");
+        }
+        facturaFiltroCostoImporte.forEach(System.out::println);
 
 
         //------------------------------------------------------------------------------------------------------------
         //filtraje por cantidadProductos especifico
-        List<Factura> facturaFiltroCantidad= lista.stream()
+        List<Factura> facturaFiltroCantidad = lista.stream()
                 .filter(elemento -> elemento.getCantidadProd() == 2)
-                        .collect(Collectors.toList());
-        if(facturaFiltroCantidad.isEmpty()){
+                .collect(Collectors.toList());
+        if (facturaFiltroCantidad.isEmpty()) {
             System.out.println("No se encontro ninguno");
         }
-       facturaFiltroCantidad.forEach(System.out::println);
+        facturaFiltroCantidad.forEach(System.out::println);
 
         //filtraje por cantidadProductos mayor a
-        List<Factura> facturaFiltroCantidadMayor= lista.stream()
+        List<Factura> facturaFiltroCantidadMayor = lista.stream()
                 .filter(elemento -> elemento.getCantidadProd() > 1)
                 .collect(Collectors.toList());
-                if(facturaFiltroCantidadMayor.isEmpty()){
-                    System.out.println("No se encontro ninguno");
-                }
-               facturaFiltroCantidadMayor.forEach(System.out::println);
+        if (facturaFiltroCantidadMayor.isEmpty()) {
+            System.out.println("No se encontro ninguno");
+        }
+        facturaFiltroCantidadMayor.forEach(System.out::println);
 
         //filtraje por cantidadProductos menor a
-        List<Factura> facturaFiltroCantidadMenor= lista.stream()
+        List<Factura> facturaFiltroCantidadMenor = lista.stream()
                 .filter(elemento -> elemento.getCantidadProd() < 1)
                 .collect(Collectors.toList());
-        if(facturaFiltroCantidadMayor.isEmpty()){
+        if (facturaFiltroCantidadMayor.isEmpty()) {
             System.out.println("No se encontro ninguno");
         }
         facturaFiltroCantidadMenor.forEach(System.out::println);
-
-
 
 
         //------------------------------------------------------------------------------------------------------------
 
 
         //Filtraje por codigo de factura especifico
-        Factura facturaFiltroCodigo= lista.stream()
-                .filter(elemento -> elemento.getCodigoFactura()==123)
+        Factura facturaFiltroCodigo = lista.stream()
+                .filter(elemento -> elemento.getCodigoFactura() == 123)
                 .findAny().get();
-        //System.out.println(facturaFiltroCodigo);
-
-
+        System.out.println(facturaFiltroCodigo);
 
 
     }
-
 
 
 }
