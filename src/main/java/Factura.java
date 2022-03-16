@@ -70,14 +70,29 @@ class Factura {
 
 
         // filtraje funcional con streams
-        List<Factura> facturaFiltroCostoImporte = lista.stream()
+        List<Factura> facturaFiltroCostoImporteMayor = lista.stream()
                 .filter(elemento -> elemento.getImporte() > 300)
                 .collect(Collectors.toList());
-        if (facturaFiltroCostoImporte.isEmpty()) {
+        if (facturaFiltroCostoImporteMayor.isEmpty()) {
             System.out.println("No se encontro ninguno");
         }
-        facturaFiltroCostoImporte.forEach(System.out::println);
+        facturaFiltroCostoImporteMayor.forEach(System.out::println);
 
+        List<Factura> facturaFiltroCostoImporteMenor = lista.stream()
+                .filter(elemento -> elemento.getImporte() < 300)
+                .collect(Collectors.toList());
+        if (facturaFiltroCostoImporteMenor.isEmpty()) {
+            System.out.println("No se encontro ninguno");
+        }
+        facturaFiltroCostoImporteMenor.forEach(System.out::println);
+
+        List<Factura> facturaFiltroCostoImporteIgual = lista.stream()
+                .filter(elemento -> elemento.getImporte() == 300)
+                .collect(Collectors.toList());
+        if (facturaFiltroCostoImporteIgual.isEmpty()) {
+            System.out.println("No se encontro ninguno");
+        }
+        facturaFiltroCostoImporteIgual.forEach(System.out::println);
 
         //------------------------------------------------------------------------------------------------------------
         //filtraje por cantidadProductos especifico
