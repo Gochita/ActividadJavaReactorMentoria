@@ -95,6 +95,8 @@ class Factura {
         facturaFiltroCostoImporteIgual.forEach(System.out::println);
 
         //------------------------------------------------------------------------------------------------------------
+
+
         //filtraje por cantidadProductos especifico
         List<Factura> facturaFiltroCantidad = lista.stream()
                 .filter(elemento -> elemento.getCantidadProd() == 2)
@@ -131,6 +133,41 @@ class Factura {
                 .filter(elemento -> elemento.getCodigoFactura() == 123)
                 .findAny().get();
         System.out.println(facturaFiltroCodigo);
+
+
+        //---------------------------------------------------------------------------------------------------------
+
+        //Filtraje por fecha igual a una fecha
+
+        List<Factura> filtrarPorFechaIgual = lista.stream()
+                .filter(elemento -> elemento.getFecha().equals(LocalDate.of(2020, 11, 27)))
+                .collect(Collectors.toList());
+        if (filtrarPorFechaIgual.isEmpty()) {
+            System.out.println("No se factura con esa fecha");
+        }
+
+        filtrarPorFechaIgual.forEach(System.out::println);
+
+        //Filtrar por fecha despues de
+        List<Factura> filtrarPorFechaMayor = lista.stream()
+                .filter(elemento -> elemento.getFecha().isAfter(LocalDate.of(2020, 11, 27)))
+                .collect(Collectors.toList());
+        if (filtrarPorFechaMayor.isEmpty()) {
+            System.out.println("No se factura con esa fecha");
+        }
+
+        filtrarPorFechaMayor.forEach(System.out::println);
+
+
+        //Filtrar por fecha antes de
+        List<Factura> filtrarPorFechaMenor= lista.stream()
+                .filter(elemento -> elemento.getFecha().isBefore(LocalDate.of(2022, 11, 27)))
+                .collect(Collectors.toList());
+        if (filtrarPorFechaMenor.isEmpty()) {
+            System.out.println("No se factura con esa fecha");
+        }
+
+        filtrarPorFechaMenor.forEach(System.out::println);
 
 
     }
